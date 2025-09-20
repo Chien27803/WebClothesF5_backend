@@ -1,0 +1,65 @@
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/test?useSSL=false&serverTimezone=UTC}
+    username: root
+    password: ${DB_PASSWORD:Dinhchien03*}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 10
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME:123456789}
+    password: ${MAIL_PASSWORD:123456789}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID:123456789}
+            client-secret: ${GOOGLE_CLIENT_SECRET:123456789}
+            redirect-uri: http://localhost:3000/oauth2/callback/google
+          facebook:
+            client-id: ${FACEBOOK_CLIENT_ID:your_facebook_client_id}
+            client-secret: ${FACEBOOK_CLIENT_SECRET:your_facebook_client_secret}
+            redirect-uri: http://localhost:3000/oauth2/callback/facebook
+        provider:
+          google:
+            authorization-uri: https://accounts.google.com/o/oauth2/v2/auth
+            token-uri: https://oauth2.googleapis.com/token
+            user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
+          facebook:
+            authorization-uri: https://www.facebook.com/v18.0/dialog/oauth
+            token-uri: https://graph.facebook.com/v18.0/oauth/access_token
+            user-info-uri: https://graph.facebook.com/me?fields=id,name,email,picture.type(large)
+jwt:
+  sign_key: ${SIGN_KEY:69YzD+lBgYPdLvX4kkzhYF9IX2zZ1okqn1SWi3/Us3iIw8bUbu7FzoX2r4RVe+7V}
+  expiry_time_token: 100000000
+  expiry_time_refreshToken: 1000000000
+cloud:
+  api_key: 291751489134838
+  api_name: dq4guha5o
+  api_secret: 3WfwpH5ig3J6b4cTM6Vbk5khP0k
+vnpay:
+  pay-url: https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
+  return-url: http://localhost:3000/payments/callback
+  tmn-code: 7NB8GD0M
+  secret-key: DUSQCXTEBGA238ARQ2W6FP1WHW9W2P1U
+  api-url: https://sandbox.vnpayment.vn/merchant_webapi/api/transaction
+openai:
+  key: ${OPENAI_KEY}
+  embedding-url: https://api.openai.com/v1/embeddings
+  completion-url: https://api.openai.com/v1/chat/completions
+qdrant:
+  url: ${QDRANT_URL:https://6db9a17b-09f1-426a-854f-93ca80fab491.europe-west3-0.gcp.cloud.qdrant.io:6333}
