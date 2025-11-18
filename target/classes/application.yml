@@ -1,0 +1,16 @@
+server:
+  port: 8081
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+#      ddl-auto: create
+    properties:
+      hibernate:
+      dialect: org.hibernate.dialect.MySQL55Dialect
+      enable_lazy_load_no_trans: true
+      format_sql: true
+  profiles:
+    active: uat
+
