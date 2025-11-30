@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
-public class VariantValidator {
+public class  VariantValidator {
 
     ObjectMapper objectMapper;  // Inject ObjectMapper
 

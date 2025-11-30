@@ -42,6 +42,11 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void delete(Long id) {
+        CategoryEntity categoryEntity = categoryRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.UNCATEGORIZED_EXCEPTION));
+        categoryEntity.setDeleted(true);
+        categoryRepository.save(categoryEntity);
+
+
 
     }
 

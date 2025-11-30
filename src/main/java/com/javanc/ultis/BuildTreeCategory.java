@@ -15,7 +15,7 @@ public class BuildTreeCategory {
                 CategoryResponse node = CategoryResponse.builder()
                         .id(category.getId())
                         .name(category.getName())
-                        .deleted(false)
+                        .deleted(category.getDeleted())
                         .products(new ArrayList<>())
                         .parentId(category.getParentId())
                         .children(treeCategory(categories, category.getId()))

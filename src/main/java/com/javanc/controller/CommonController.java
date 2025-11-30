@@ -19,9 +19,7 @@ import org.springframework.http.ResponseEntity;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -61,6 +59,16 @@ public class CommonController {
         return ResponseEntity.ok().body(
                 ApiResponseDTO.<List<CategoryResponse>>builder()
                         .result(categoryService.getAll())
+                        .build()
+        );
+    }
+    @DeleteMapping("/categories/{id}")
+    public ResponseEntity<?> deleteCategory(@PathVariable Long id) {
+         categoryService.delete(id); // thực hiện xóa
+        return ResponseEntity.ok(
+                ApiResponseDTO.builder()
+                        .message("Xóa danh mục thành công")
+
                         .build()
         );
     }
