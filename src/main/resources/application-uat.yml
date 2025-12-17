@@ -49,8 +49,8 @@ spring:
             user-info-uri: https://graph.facebook.com/me?fields=id,name,email,picture.type(large)
 jwt:
   sign_key: ${jwt_sign_key}
-  expiry_time_token: 100000000
-  expiry_time_refreshToken: 1000000000
+  expiry_time_token: 1000
+  expiry_time_refreshToken: 1000
 cloud:
   api_key: ${cloud_api_key}
   api_name: ${cloud_api_name}

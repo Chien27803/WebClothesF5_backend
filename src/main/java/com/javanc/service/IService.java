@@ -1,6 +1,5 @@
 package com.javanc.service;
 
-import java.io.IOException;
 import java.util.List;
 
 public interface IService <T, R, I>{

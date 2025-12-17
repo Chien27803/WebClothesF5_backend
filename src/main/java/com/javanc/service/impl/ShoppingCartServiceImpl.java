@@ -84,6 +84,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public void updateCart(List<ProductCartItemRequest> productCartItemRequests) {
+
         SecurityContext context = SecurityContextHolder.getContext();
         Authentication authentication = context.getAuthentication();
         String email = authentication.getName();

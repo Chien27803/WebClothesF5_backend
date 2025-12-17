@@ -98,12 +98,5 @@ public class FavoriteProductController {
                         .build()
         );
     }
-    @DeleteMapping
-    public ResponseEntity<?> deleteFavorite() {
-        return ResponseEntity.ok().body(
-                ApiResponseDTO.<Void>builder()
-                        .message("Delete favorite item success")
-                        .build()
-        );
-    }
+
 }

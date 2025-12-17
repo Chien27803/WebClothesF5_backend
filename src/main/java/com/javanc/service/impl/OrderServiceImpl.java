@@ -133,6 +133,7 @@ public class OrderServiceImpl implements OrderService {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         String email = securityContext.getAuthentication().getName();
         UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTS));
+
         Float total = (float) orderRequest.getCart().stream().mapToDouble(item -> Math.round(item.getPrice() * (1 - item.getPercent() / 100.0)) * item.getQuantity()).sum();
 
         AddressEntity addressEntity = addressRepository.findById(orderRequest.getAddress().getAddressId()).orElseThrow(() -> new RuntimeException("Address not found"));

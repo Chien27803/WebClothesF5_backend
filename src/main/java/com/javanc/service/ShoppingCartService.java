@@ -2,9 +2,6 @@ package com.javanc.service;
 
 import com.javanc.model.request.client.ProductCartItemRequest;
 
-import com.javanc.model.response.client.ProductFavoriteResponse;
-
-
 import java.util.List;
 
 public interface ShoppingCartService {

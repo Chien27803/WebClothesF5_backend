@@ -158,6 +158,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteProducts(List<Long> ids) {
         List<ProductEntity> listProducts = productRepository.findAllById(ids);
+
         for(ProductEntity productEntity : listProducts){
             productEntity.setDeleted(!productEntity.getDeleted()    );
 
