@@ -1,5 +1,6 @@
 package com.javanc.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -41,6 +43,7 @@ public class WebSecurityConfig {
             "/auth/refreshToken",
             "/auth/logout",
             "/api/upload",
+            "/api/chatbot/ask",
             "/auth/sendEmail",
             "/api/otp/send",
             "/api/otp/verify",
@@ -48,7 +51,9 @@ public class WebSecurityConfig {
             "/auth/forgot/checkOTP"
     };
 
+    @Autowired
     private CustomJwtDecoder customerJwtDecoder;
+
 
     private final String apiPrefix = "/api/admin";
     private final String userApiPrefix = "/api";
@@ -67,6 +72,12 @@ public class WebSecurityConfig {
         source.registerCorsConfiguration("/**", config);
         return source;
     }
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return web -> web.ignoring().requestMatchers("/ws/**");
+    }
+
+
 
     // ===================== SECURITY =====================
     @Bean
@@ -78,11 +89,12 @@ public class WebSecurityConfig {
 
                 .authorizeHttpRequests(request -> request
 
+
                         // ======== CORS Preflight ========
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
                         // ======== Chatbot cần token ========
-                        .requestMatchers(HttpMethod.POST, "/chatbot").authenticated()
+
 
                         // ======== Public POST ========
                         .requestMatchers(HttpMethod.POST, PUBLIC_ENPOINTS).permitAll()
@@ -109,20 +121,26 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/admin/recent").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/admin/total_month").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/admin/topOrder").permitAll()
+                        .requestMatchers("/api/chat-rooms").permitAll()
+                        .requestMatchers("/ws/**").permitAll()
+
 
                         // ======== Các API còn lại cần JWT ========
                         .anyRequest().authenticated()
-                )
-
-                .oauth2ResourceServer(oauth2 ->
-                        oauth2.jwt(jwt ->
-                                jwt.decoder(customerJwtDecoder)
-                                        .jwtAuthenticationConverter(jwtAuthenticationConverter())
-                        ).authenticationEntryPoint(new AuthenticationEntryPointConfig())
                 );
+
+        httpSecurity.oauth2ResourceServer(oauth2 ->
+                oauth2.jwt(jwtConfigurer -> jwtConfigurer.decoder(customerJwtDecoder)
+                                .jwtAuthenticationConverter(jwtAuthenticationConverter()))
+                        .authenticationEntryPoint(new AuthenticationEntryPointConfig())
+        );
+
+
+        httpSecurity.csrf(AbstractHttpConfigurer::disable);
 
         return httpSecurity.build();
     }
+
 
     // ================= PASSWORD ENCODER =================
     @Bean

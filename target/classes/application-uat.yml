@@ -22,9 +22,9 @@ spring:
           auth: true
           starttls:
             enable: true
-  ai:
-    openai:
-      api-key: ${OPENAI_KEY}
+#  ai:
+#    openai:
+#      api-key:
 
   security:
     oauth2:
@@ -62,9 +62,11 @@ vnpay:
   secret-key: ${vnpay_secret_key}
   api-url: https://sandbox.vnpayment.vn/merchant_webapi/api/transaction
 
-#openai:
-#  key: ${OPENAI_KEY}
-#  embedding-url: https://api.openai.com/v1/embeddings
-#  completion-url: https://api.openai.com/v1/chat/completions
+openai:
+  key: ${OPENAI_KEY}
+  embedding-url: https://api.openai.com/v1/embeddings
+  completion-url: https://api.openai.com/v1/chat/completions
 qdrant:
-  url: ${QDRANT_URL:https://6db9a17b-09f1-426a-854f-93ca80fab491.europe-west3-0.gcp.cloud.qdrant.io:6333}
+  url: https://6f8536ec-253d-4237-a969-e510a2c8c8e7.us-east4-0.gcp.cloud.qdrant.io
+  api-key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3MiOiJtIn0.zKBnBUlu-HWnkzxA0u1JaNvIpUrsbCTEaUZGiI9HkOk
+  collection-name: f3_clothes_collection
